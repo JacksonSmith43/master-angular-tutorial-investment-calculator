@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { UserInputComponent } from "./user-input/user-input.component";
-import { NgModule } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -13,20 +12,30 @@ import { NgModule } from '@angular/core';
 export class AppComponent {
   title = 'master-angular-tutorial-investment-calculator';
 
-  onInitialInvestment() {
+  onCalculateInvestmentResults(data: { initialInvestment: number, annualInvestment: number, expectedReturn: number, duration: number }) {
+    const { initialInvestment, annualInvestment, expectedReturn, duration } = data; // Creates the four variables out of the object. 
 
-  }
+    const annualData = [];
+    let investmentValue = initialInvestment;
 
-  onAnnualInvestment() {
+    for (let i = 0; i < duration; i++) {
 
-  }
+      const year = i + 1;
+      const interestEarnedInYear = investmentValue * (expectedReturn / 100);
+      investmentValue += interestEarnedInYear + annualInvestment;
+      const totalInterest = investmentValue - annualInvestment * year - initialInvestment;
 
-  onExpectedReturn() {
+      annualData.push({
+        year: year,
+        interest: interestEarnedInYear,
+        valueEndOfYear: investmentValue,
+        annualInvestment: annualInvestment,
+        totalInterest: totalInterest,
+        totalAmountInvested: initialInvestment + annualInvestment * year,
+      });
 
-  }
-
-  onDuration() {
-
+    }
+    console.log(annualData);
   }
 
 }

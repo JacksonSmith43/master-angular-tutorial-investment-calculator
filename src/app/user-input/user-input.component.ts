@@ -9,34 +9,23 @@ import { FormsModule } from '@angular/forms';
 })
 
 export class UserInputComponent {
+
+  @Output() calculate = new EventEmitter<{
+    initialInvestment: number; annualInvestment: number; expectedReturn: number; duration: number;
+  }>();
+
   enteredInitialInvestment = "0";
   enteredAnnualInvestment = "0";
   enteredExpectedReturn = "0";
   enteredDuration = "0";
 
-  @Output() initialInvestmentOutput = new EventEmitter();
-  @Output() annualInvestmentOutput = new EventEmitter();
-  @Output() expectedreturnOutput = new EventEmitter();
-  @Output() durationOutput = new EventEmitter();
-
-  onInitialInvestment() {
-    this.initialInvestmentOutput.emit();
-  }
-
-  onAnnualInvestment() {
-    this.annualInvestmentOutput.emit();
-  }
-
-  onExpectedReturn() {
-    this.expectedreturnOutput.emit();
-  }
-
-  onDuration() {
-    this.durationOutput.emit();
-  }
-
   onSubmit() {
-
+    this.calculate.emit({
+      initialInvestment: +this.enteredInitialInvestment, // + is here to turn the string into a number. 
+      annualInvestment: +this.enteredAnnualInvestment,
+      expectedReturn: +this.enteredExpectedReturn,
+      duration: +this.enteredDuration
+    });
   }
 
 }

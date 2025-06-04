@@ -1,17 +1,27 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { UserInputComponent } from "./user-input/user-input.component";
+import { InvestmentResultsComponent } from './investment-results/investment-results.component';
 import type { InvestmentInput } from './investment-input.model';
 
 @Component({
   selector: 'app-root',
-  imports: [HeaderComponent, UserInputComponent],
+  imports: [HeaderComponent, UserInputComponent, InvestmentResultsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 
 export class AppComponent {
   title = 'master-angular-tutorial-investment-calculator';
+
+  resultsData?: {
+    year: number;
+    interest: number;
+    valueEndOfYear: number;
+    annualInvestment: number;
+    totalInterest: number;
+    totalAmountInvested: number;
+  }[];
 
   onCalculateInvestmentResults(data: InvestmentInput) {
     const { initialInvestment, annualInvestment, expectedReturn, duration } = data; // Creates the four variables out of the object. 
@@ -32,11 +42,11 @@ export class AppComponent {
         valueEndOfYear: investmentValue,
         annualInvestment: annualInvestment,
         totalInterest: totalInterest,
-        totalAmountInvested: initialInvestment + annualInvestment * year,
+        totalAmountInvested: initialInvestment + annualInvestment * year
       });
 
     }
-    console.log(annualData);
+    this.resultsData = annualData;
   }
 
 }

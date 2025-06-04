@@ -26,10 +26,10 @@
         @for(i of results; track i.year){
         <tr>
             <td>{{i.year}}</td>
-            <td>{{i.valueEndOfYear}}</td>
-            <td>{{i.interest}}</td>
-            <td>{{i.totalInterest}}</td>
-            <td>{{i.totalAmountInvested}}</td>
+            <td>{{i.valueEndOfYear |currency:"EUR"}}</td>
+            <td>{{i.interest |currency:"EUR"}}</td>
+            <td>{{i.totalInterest |currency:"EUR"}}</td>
+            <td>{{i.totalAmountInvested |currency:"EUR"}}</td>
         </tr>
         }
     </tbody>

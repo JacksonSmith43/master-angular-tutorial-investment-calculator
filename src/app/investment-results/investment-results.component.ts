@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 
 @Component({
@@ -9,12 +9,13 @@ import { CurrencyPipe } from '@angular/common';
 })
 
 export class InvestmentResultsComponent {
-  @Input() results?: { // Because of ? there does not need to be a value. 
-    year: number,
-    interest: number,
-    valueEndOfYear: number,
-    annualInvestment: number,
-    totalInterest: number,
-    totalAmountInvested: number,
-  }[]; // [] makes it an array of objects. 
+  results = input<{
+    year: number;
+    interest: number;
+    valueEndOfYear: number;
+    annualInvestment: number;
+    totalInterest: number;
+    totalAmountInvested: number
+  }[]>();
+
 }

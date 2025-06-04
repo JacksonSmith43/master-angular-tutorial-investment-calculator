@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { UserInputComponent } from "./user-input/user-input.component";
 import { InvestmentResultsComponent } from './investment-results/investment-results.component';
@@ -14,14 +14,15 @@ import type { InvestmentInput } from './investment-input.model';
 export class AppComponent {
   title = 'master-angular-tutorial-investment-calculator';
 
-  resultsData?: {
-    year: number;
-    interest: number;
-    valueEndOfYear: number;
-    annualInvestment: number;
-    totalInterest: number;
-    totalAmountInvested: number;
-  }[];
+  resultsData = signal<{
+    year: number,
+    interest: number,
+    valueEndOfYear: number,
+    annualInvestment: number,
+    totalInterest: number,
+    totalAmountInvested: number,
+  }[] | undefined>(undefined); // This means that it will either hold an array or an undefined value. 
+
 
   onCalculateInvestmentResults(data: InvestmentInput) {
     const { initialInvestment, annualInvestment, expectedReturn, duration } = data; // Creates the four variables out of the object. 
@@ -46,7 +47,7 @@ export class AppComponent {
       });
 
     }
-    this.resultsData = annualData;
+    this.resultsData.set(annualData);
   }
 
 }
